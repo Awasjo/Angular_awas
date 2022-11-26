@@ -5,19 +5,21 @@ import {
   Input,
   Attribute,
   SimpleChanges,
-  OnChanges,
+  OnChanges
 } from '@angular/core';
+
 @Directive({
   selector: '[counterOf]',
 })
-export class CounterDirective implements OnChanges {
+export class CounterDirective implements OnChanges{
   constructor(
     private container: ViewContainerRef,
-    private template: TemplateRef<Object>
+    private template: TemplateRef<any>
   ) {}
   @Input('counterOf')
   counter?: number;
-  ngOnChanges(changes: SimpleChanges) {
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.container.clear();
     for (let i = 0; i < this.counter!; i++) {
       this.container.createEmbeddedView(
@@ -27,6 +29,8 @@ export class CounterDirective implements OnChanges {
     }
   }
 }
-class CounterDirectiveContext {
-  constructor(public $implicit: any) {}
+
+class CounterDirectiveContext
+{
+    constructor(public $implicit: any){}
 }

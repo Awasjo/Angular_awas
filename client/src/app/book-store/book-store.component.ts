@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Book } from '../model/book.model';
 import { BookRepository } from '../model/book.repository';
+import { Cart } from '../model/cart.model';
 
 
 @Component({
@@ -14,7 +16,9 @@ export class BookStoreComponent {
   public booksPerPage = 4;
   public selectedPage = 1;
 
-  constructor(private repository: BookRepository) { }
+  constructor(private repository: BookRepository,
+    private cart: Cart,
+    private router: Router) { }
 
   ngOnInit(): void 
   {
@@ -25,6 +29,7 @@ export class BookStoreComponent {
     const pageIndex = (this.selectedPage - 1) * this.booksPerPage;
     return this.repository.getBooks(this.selectedAuthor)
     .slice(pageIndex, pageIndex + this.booksPerPage);
+    
   }
 
   get authors(): string[]
@@ -48,10 +53,22 @@ export class BookStoreComponent {
     this.changePage(1);
   }
 
-  get pageNumber(): number[]
+  get pageCount(): number
   {
-    return Array(Math.ceil(this.repository
-      .getBooks(this.selectedAuthor).length / this.booksPerPage))
-      .fill(0).map((x,i) => i + 1);
+    return Math.ceil(this.repository.getBooks(this.selectedAuthor)
+    .length / this.booksPerPage);
   }
+
+  addBookToCart(book: Book): void
+  {
+    this.cart.addLine(book);
+    this.router.navigateByUrl('/cart');
+  }
+
+  // get pageNumber(): number[]
+  // {
+  //   return Array(Math.ceil(this.repository
+  //     .getBooks(this.selectedAuthor).length / this.booksPerPage))
+  //     .fill(0).map((x,i) => i + 1);
+  // }
 }
