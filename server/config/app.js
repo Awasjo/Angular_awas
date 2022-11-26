@@ -4,6 +4,7 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let cors = require('cors');
+
 let passport = require('passport');
 let passportJWT = require('passport-jwt');
 let JWTStrategy = passportJWT.Strategy;
@@ -43,13 +44,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
+app.use(cors());
 
 //setup express session
 app.use(session({
   secret:'SomeSecret',
   saveUninitialized:false,
-  //resave:false
-  reSave:false
+  resave:false
 }));
 
 //initialize flash

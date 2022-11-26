@@ -74,15 +74,14 @@ module.exports.processLoginPage = (req,res,next)=>{
             const authToken = jwt.sign(payload,DB.Secret,{
                 expiresIn:604800 //1 week
             });
-          /*TODO Cetting Ready to convert to API
-            res.json({success:true,msg:'user Logged in successfully',user:{
+          
+            return res.json({success:true,msg:'user Logged in successfully',user:{
                 id:user._id,
                 displayName:user.displayName,
                 username:user.username,
                 email:user.email
-            },token:authToken});
-           */
-            return res.redirect('/bookList');
+            },  token:authToken});
+            // return res.redirect('/bookList');
         });
         
     })(req,res,next);
@@ -135,19 +134,15 @@ module.exports.processRegisterPage = (req,res,next)=>{
             
             // if no error exists, then registration is successful
             // redirect the user and authenticate them
-            /*TODO Getting Ready to convert to API
-            res.json({success:true,msg:'user Registered successfully!'});
-           */
-            return passport.authenticate('local')(req,res,()=>{
-                res.redirect('/bookList')
-            });
+            return res.json({success:true,msg:'user Registered successfully!'});
+            // return passport.authenticate('local')(req,res,()=>{
+            //     res.redirect('/bookList')
+            // });
         }
     });
 }
 module.exports.performLogout = (req,res,next)=>{
-    req.logout(function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-      });
+    req.logout();
     //res.redirect('/');
+    res.json({success: true, msg: ' User Successfully Logged out!'});
 }

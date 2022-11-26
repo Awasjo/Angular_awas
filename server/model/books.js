@@ -1,11 +1,10 @@
 let mongoose = require('mongoose');
 let bookModel = mongoose.Schema({
-    name: String,
-    author: String,
-    published: String,
+    title: String,
     description: String,
-    price: Number
-
+    price: Number,
+    author: String,
+    genre:String
 },
 
 {

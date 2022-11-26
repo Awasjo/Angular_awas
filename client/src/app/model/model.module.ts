@@ -16,6 +16,7 @@ import { StaticDataSource } from './static.datasource';
     Order,
     OrderRepository,
     { provide: StaticDataSource, useClass: RestDataSource },
+    RestDataSource
   ],
 })
 export class ModelModule {}

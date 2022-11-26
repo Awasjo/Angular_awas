@@ -12,17 +12,20 @@ module.exports.displayBookList = (req,res,next)=>{
         else
         {
          //console.log(BookList);
-         res.render('book/list', 
-         {title:'Books', BookList:bookList,
-        displayName:req.user ? req.user.displayName:''});
+        //  res.render('book/list', 
+        //  {title:'Books', BookList:bookList,
+        // displayName:req.user ? req.user.displayName:''});
+        
+        res.json(bookList);
         }
     });
 }
 
 module.exports.displayAddPage = (req,res,next)=>{
-    res.render('book/add',{title:'Add Book',
-    displayName:req.user ? req.user.displayName:''})
+    // res.render('book/add',{title:'Add Book',
+    // displayName:req.user ? req.user.displayName:''})
 
+    res.json({success: true, msg: 'Successfully Displayed Add Page'});
 }
 
 module.exports.processAddPage = (req,res,next)=>{
@@ -41,8 +44,10 @@ module.exports.processAddPage = (req,res,next)=>{
         }
         else
         {
-        res.redirect('/bookList');
-        }
+        //res.redirect('/bookList');
+
+        res.json({success: true, msg: 'Successfully processed Add Page'});
+    }
     });
     }
     
@@ -56,8 +61,11 @@ module.exports.processAddPage = (req,res,next)=>{
                 }
                 else
                 {
-                    res.render('book/edit',{title:'Edit Book', book: bookToEdit,
-                    displayName:req.user ? req.user.displayName:''});
+                    // res.render('book/edit',{title:'Edit Book', book: bookToEdit,
+                    // displayName:req.user ? req.user.displayName:''});
+
+                    res.json({success: true, msg: 'Successfully Displayed book to edit Page', book: bookToEdit});
+
                 }
             
             });
@@ -82,7 +90,9 @@ module.exports.processAddPage = (req,res,next)=>{
                 }
                 else
                 {
-                    res.redirect('/bookList');
+                    // res.redirect('/bookList');
+                    res.json({success: true, msg: 'Successfully edited book', book: updatedBook});
+
                 }
             });
         }
@@ -97,7 +107,9 @@ module.exports.processAddPage = (req,res,next)=>{
                 }
                 else
                 {
-                    res.redirect('/bookList');
+                    // res.redirect('/bookList');
+                    res.json({success: true, msg: 'Successfully Deleted Book'});
+
                 }
                 
             });
