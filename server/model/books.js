@@ -4,7 +4,8 @@ let bookModel = mongoose.Schema({
     description: String,
     price: Number,
     author: String,
-    genre:String
+    genre: String
+
 },
 
 {
