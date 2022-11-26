@@ -10,8 +10,8 @@
             {{errorMessage}}
             </div>
             <h1>Please Login</h1>
-            <form autocomplete="off" #form="ngForm" 
-            (ngSubmit='authenticate(form)'>
+            <form autocomplete="off" #form='ngForm'
+            (ngSubmit)='authenticate(form)'>
             
             <fieldset class="form-group">
                 <label for="username">Username: </label>
