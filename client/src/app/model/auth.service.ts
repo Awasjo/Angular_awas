@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { RestDataSource } from "./rest.datasource";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { NgForm } from "@angular/forms";
 
 
 import { User } from "./user.model";
@@ -10,6 +11,7 @@ import { User } from "./user.model";
 export class AuthService
 {
     user: User;
+    
 
     constructor(private datasource: RestDataSource)
     {
@@ -19,6 +21,11 @@ export class AuthService
     authenticate(user:User): Observable<any>
     {
         return this.datasource.authenticate(user);
+    }
+
+    register(user:User): Observable<any>
+    {
+        return this.datasource.register(user);
     }
  
     storeUserData(token: any, user:User): void{

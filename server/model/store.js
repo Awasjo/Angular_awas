@@ -53,6 +53,7 @@ class Cart{
         let count = 0;
         for(let line of this.lines)
         {
+            
             outputString += "{" + this.lines.toString();
             count++;
             outputString += (count > this.lines.length) ? "}, \n" : "} \n";

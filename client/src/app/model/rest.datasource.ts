@@ -52,6 +52,10 @@ export class RestDataSource
         return this.http.post<any>(this.baseUrl + 'login', user, this.httpOptions)
     }
 
+    register(user: User): Observable<any> {
+        return this.http.post(this.baseUrl + 'register', user, this.httpOptions);
+    }
+
     storeUserData(token: any, user:User): void{
         localStorage.setItem('id_token','Bearer' + token);
         localStorage.setItem('user', JSON.stringify(user));
@@ -76,6 +80,18 @@ export class RestDataSource
     {
         this.loadToken();
         return this.http.get<Order[]>(this.baseUrl + 'orders'); 
+    }
+
+    deleteOrder(id: number): Observable<Order>
+    {
+        this.loadToken();
+        return this.http.get<Order>(`${this.baseUrl}orders/delete/${id}`, this.httpOptions);
+    }
+
+    updateOrder(order: Order): Observable<Order>
+    {
+        this.loadToken();
+        return this.http.post<Order>(`${this.baseUrl}orders/edit/${order._id}`, this.httpOptions);
     }
 
     private loadToken(): void{
